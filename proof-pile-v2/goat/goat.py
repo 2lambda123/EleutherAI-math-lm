@@ -19,6 +19,11 @@ from tqdm import trange
 
 
 def addition(k=1000):
+    """
+
+    :param k:  (Default value = 1000)
+
+    """
     # Addition up to 16 digits
     pairs = (
         [
@@ -69,6 +74,11 @@ def addition(k=1000):
 
 
 def subtraction(k=1000):
+    """
+
+    :param k:  (Default value = 1000)
+
+    """
     # Subtraction up to 16 digits
     pairs = (
         [
@@ -120,6 +130,11 @@ def subtraction(k=1000):
 
 
 def mul_1_n(k=1000):
+    """
+
+    :param k:  (Default value = 1000)
+
+    """
     # 1xn, up to 16 digits.
     pairs = (
         [
@@ -183,6 +198,11 @@ def mul_1_n(k=1000):
 
 
 def mul_n_m(k=1000):
+    """
+
+    :param k:  (Default value = 1000)
+
+    """
     # multi-digit multiplication, with the product up to 12 digits
     pairs = (
         [
@@ -275,6 +295,11 @@ def mul_n_m(k=1000):
 
 
 def div_n_1(k=1000):
+    """
+
+    :param k:  (Default value = 1000)
+
+    """
     # Division n/1, with n up to 16 digits
     # pairs represent (divisor, quotient)
     pairs = (
@@ -356,6 +381,11 @@ def div_n_1(k=1000):
 
 
 def div_n_m(k=1000):
+    """
+
+    :param k:  (Default value = 1000)
+
+    """
     # Division n/m with dividend<=12 digits and quotient<=7 digits
     # pairs represent (dividend, divisor)
 
@@ -435,6 +465,12 @@ def div_n_m(k=1000):
 
 
 def add_instructions(data, template_name="./templates.json"):
+    """
+
+    :param data: 
+    :param template_name:  (Default value = "./templates.json")
+
+    """
     # Add natural language instructions to the generated arithmetic data using template
     with open(template_name) as fp:
         template = json.load(fp)
@@ -494,6 +530,11 @@ def add_instructions(data, template_name="./templates.json"):
 
 
 def reformat(data):
+    """
+
+    :param data: 
+
+    """
     for i in range(len(data)):
         example = data[i]
         data[i] = {"text": example["instruction"] + " " + example["output"]}
@@ -501,6 +542,12 @@ def reformat(data):
 
 
 def make_splits(data, validation_frac=0.005):
+    """
+
+    :param data: 
+    :param validation_frac:  (Default value = 0.005)
+
+    """
     random.shuffle(data)
 
     validation_size = int(len(data) * validation_frac)
@@ -518,6 +565,12 @@ def make_splits(data, validation_frac=0.005):
 
 
 def save(splits, output_dir):
+    """
+
+    :param splits: 
+    :param output_dir: 
+
+    """
     Path(output_dir).mkdir(parents=True, exist_ok=True)
     for name, split in splits.items():
         output_filename = os.path.join(output_dir, "goat_%s.jsonl" % name)
@@ -528,12 +581,23 @@ def save(splits, output_dir):
 
 
 def save_metadata(metadata, meta_dir):
+    """
+
+    :param metadata: 
+    :param meta_dir: 
+
+    """
     Path(meta_dir).mkdir(parents=True, exist_ok=True)
     with open(os.path.join(meta_dir, "goat_metadata.json"), "w") as f:
         json.dump(metadata, f)
 
 
 def num_tokens(data):
+    """
+
+    :param data: 
+
+    """
     print("Counting tokens..")
     tokenizer = tiktoken.get_encoding("cl100k_base")
     batch_size = 10000
