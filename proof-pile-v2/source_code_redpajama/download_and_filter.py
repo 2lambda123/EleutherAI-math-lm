@@ -83,12 +83,17 @@ EXTENSIONS = [
 
 
 def init_pool_processes(the_locks):
-    """Initialize each process with a global variable lock."""
+    """Initialize each process with a global variable lock.
+
+    :param the_locks: 
+
+    """
     global locks
     locks = the_locks
 
 
 class CustomThreadPoolExecutor(ThreadPoolExecutor):
+    """ """
     def __init__(self, max_workers=None, initializer=None, initargs=()):
         super().__init__(
             max_workers=max_workers, initializer=initializer, initargs=initargs
@@ -96,6 +101,7 @@ class CustomThreadPoolExecutor(ThreadPoolExecutor):
 
 
 class CustomProcessPoolExecutor(ProcessPoolExecutor):
+    """ """
     def __init__(self, max_workers=None, initializer=None, initargs=()):
         super().__init__(
             max_workers=max_workers, initializer=initializer, initargs=initargs
@@ -103,11 +109,21 @@ class CustomProcessPoolExecutor(ProcessPoolExecutor):
 
 
 def _get_ext(example):
+    """
+
+    :param example: 
+
+    """
     _, extension_with_dot = os.path.splitext(example["meta"]["path"])
     return extension_with_dot[1:]
 
 
 def _convert_to_stack_format(example):
+    """
+
+    :param example: 
+
+    """
     return {
         "content": example["text"],
         "size": len(example["text"].encode("utf-8")),
@@ -118,6 +134,11 @@ def _convert_to_stack_format(example):
 
 
 def _convert_to_gh_format(example):
+    """
+
+    :param example: 
+
+    """
     return {
         "text": example["text"],
         "meta": {"repo": example["meta"]["repo_name"], **example["meta"]},
@@ -126,6 +147,12 @@ def _convert_to_gh_format(example):
 
 @backoff.on_exception(backoff.expo, httpx.RemoteProtocolError)
 def download_jsonl(url: str, filepath: str):
+    """
+
+    :param url: str: 
+    :param filepath: str: 
+
+    """
     with open(filepath, "wb") as download_file:
         with httpx.stream("GET", url, timeout=30) as response:
             total = int(response.headers["Content-Length"])
@@ -143,6 +170,12 @@ def download_jsonl(url: str, filepath: str):
 
 
 def get_jsonl(url: str, raw_dir: str) -> List:
+    """
+
+    :param url: str: 
+    :param raw_dir: str: 
+
+    """
     filename = os.path.basename(urlparse(url).path)
     filepath = os.path.join(raw_dir, filename)
 
@@ -174,6 +207,11 @@ def get_jsonl(url: str, raw_dir: str) -> List:
 
 
 def filter_fn(example):
+    """
+
+    :param example: 
+
+    """
     extension = _get_ext(example)
 
     if extension not in EXTENSIONS:
@@ -212,6 +250,11 @@ ENC = tiktoken.get_encoding("cl100k_base")
 
 
 def process(example):
+    """
+
+    :param example: 
+
+    """
     extension = _get_ext(example)
 
     if extension == "thy":
@@ -225,6 +268,13 @@ def process(example):
 
 
 def get_filter_save(url: str, raw_dir: str, data_dir: str):
+    """
+
+    :param url: str: 
+    :param raw_dir: str: 
+    :param data_dir: str: 
+
+    """
     data = get_jsonl(url=url, raw_dir=raw_dir)
     print("processing...")
 
@@ -257,6 +307,15 @@ def concurrent_get_filter_save(
     meta_dir: str,
     num_workers: int,
 ):
+    """
+
+    :param urls: List[str]: 
+    :param raw_dir: str: 
+    :param data_dir: str: 
+    :param meta_dir: str: 
+    :param num_workers: int: 
+
+    """
     to_map = partial(get_filter_save, raw_dir=raw_dir, data_dir=data_dir)
 
     locks = {k: Lock() for k in EXTENSIONS}
@@ -283,6 +342,11 @@ def concurrent_get_filter_save(
 
 
 def main(args):
+    """
+
+    :param args: 
+
+    """
     # if os.path.isdir(args.data_dir):
     #    raise OSError(f"{args.data_dir} already exists")
     Path(args.data_dir).mkdir(exist_ok=True, parents=True)
