@@ -11,6 +11,12 @@ from tqdm import tqdm
 
 
 def wrap_isabelle_comment(text, width=80):
+    """
+
+    :param text: 
+    :param width:  (Default value = 80)
+
+    """
     # Constants for comment formatting
 
     if "\n" not in text:
@@ -32,6 +38,11 @@ def wrap_isabelle_comment(text, width=80):
 
 
 def split_list(lst):
+    """
+
+    :param lst: 
+
+    """
     splits = []
     temp = []
     for item in lst:
@@ -47,6 +58,11 @@ def split_list(lst):
 
 
 def create_outputs(split):
+    """
+
+    :param split: 
+
+    """
     res = ""
 
     statement = split[0][1]
@@ -65,6 +81,11 @@ def create_outputs(split):
 
 
 def extract_filename(filepath):
+    """
+
+    :param filepath: 
+
+    """
     begin = "thys_"
     end = "_ground"
     whole_name = filepath[filepath.index(begin) + len(begin) : filepath.index(end)]
@@ -76,6 +97,12 @@ def extract_filename(filepath):
 
 
 def consolidate_by_file(data, sp):
+    """
+
+    :param data: 
+    :param sp: 
+
+    """
     row_of_file = dict()
 
     for row in tqdm(data):
@@ -99,6 +126,11 @@ def consolidate_by_file(data, sp):
 
 
 def get_theorem_statements_from_folder(folder_path):
+    """
+
+    :param folder_path: 
+
+    """
     theorem_statements = []
     json_files_in_folder = glob.glob(os.path.join(folder_path, "*.json"))
 
@@ -114,6 +146,14 @@ def get_theorem_statements_from_folder(folder_path):
 
 
 def create_dataset(path_to_dataset, test_set, decontaminate=True, max_items=None):
+    """
+
+    :param path_to_dataset: 
+    :param test_set: 
+    :param decontaminate:  (Default value = True)
+    :param max_items:  (Default value = None)
+
+    """
     dataset = []
 
     json_files = glob.glob(path_to_dataset + "/*/*.json")
