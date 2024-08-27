@@ -18,11 +18,11 @@ def wrap_isabelle_comment(text, width=80):
         return f"(* {text} *)"
 
     wrapped_text = ""
-    lines = text.split('\n')
+    lines = text.split("\n")
     for i, line in enumerate(lines):
         if i == 0:
             wrapped_text += "(*  " + line + "\n"
-        elif i == len(lines)-1:
+        elif i == len(lines) - 1:
             wrapped_text += "    " + line + "\n*)"
         else:
             wrapped_text += "    " + line + "\n"
@@ -36,7 +36,7 @@ def split_list(lst):
     splits = []
     temp = []
     for item in lst:
-        if item[0] == '':
+        if item[0] == "":
             if temp:
                 splits.append(temp)
             temp = [item]
@@ -68,11 +68,10 @@ def create_outputs(split):
 def extract_filename(filepath):
     begin = "thys_"
     end = "_ground"
-    whole_name = filepath[filepath.index(
-        begin) + len(begin):filepath.index(end)]
+    whole_name = filepath[filepath.index(begin) + len(begin) : filepath.index(end)]
 
-    theory = whole_name[:whole_name.rindex("_")]
-    filename = whole_name[whole_name.rindex("_")+1:]
+    theory = whole_name[: whole_name.rindex("_")]
+    filename = whole_name[whole_name.rindex("_") + 1 :]
 
     return theory + "/" + filename + ".thy"
 
@@ -94,8 +93,7 @@ def consolidate_by_file(data, sp):
         text = "\n\n".join([x["text"] for x in v])
         num_tokens = len(sp.encode(text))
         consolidated_data.append(
-            {"text": text, "meta": {
-                "file": v[0]["meta"]["file"], "tokens": num_tokens}}
+            {"text": text, "meta": {"file": v[0]["meta"]["file"], "tokens": num_tokens}}
         )
 
     return consolidated_data
@@ -103,10 +101,10 @@ def consolidate_by_file(data, sp):
 
 def get_theorem_statements_from_folder(folder_path):
     theorem_statements = []
-    json_files_in_folder = glob.glob(os.path.join(folder_path, '*.json'))
+    json_files_in_folder = glob.glob(os.path.join(folder_path, "*.json"))
 
     for json_file in json_files_in_folder:
-        with open(json_file, 'r') as f:
+        with open(json_file, "r") as f:
             data = json.load(f)
 
             for item in data:
@@ -119,7 +117,7 @@ def get_theorem_statements_from_folder(folder_path):
 def create_dataset(path_to_dataset, test_set, decontaminate=True, max_items=None):
     dataset = []
 
-    json_files = glob.glob(path_to_dataset + '/*/*.json')
+    json_files = glob.glob(path_to_dataset + "/*/*.json")
     # file.endswith('thy_output.json')]
     json_files = [file for file in json_files if True]
 
@@ -133,11 +131,14 @@ def create_dataset(path_to_dataset, test_set, decontaminate=True, max_items=None
         with open(file) as f:
             data = json.load(f)
 
-        if 'translations' in data:
-            translations = data['translations']
+        if "translations" in data:
+            translations = data["translations"]
             splitted_list = split_list(translations)
-            splitted_list = [x for x in splitted_list if x[0][1].startswith(
-                'lemma ') or x[0][1].startswith('theorem ')]
+            splitted_list = [
+                x
+                for x in splitted_list
+                if x[0][1].startswith("lemma ") or x[0][1].startswith("theorem ")
+            ]
             for split in splitted_list:
                 all_splits.append(split)
                 corresponding_files.append(file)
@@ -150,35 +151,34 @@ def create_dataset(path_to_dataset, test_set, decontaminate=True, max_items=None
         if decontaminate and any(theorem in txt for theorem in test_set):
             continue
         else:
-            dataset.append(
-                {"text": txt, "meta": {"file": file, "length": length}})
+            dataset.append({"text": txt, "meta": {"file": file, "length": length}})
 
     return dataset
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("--afp_folder", help="Path to the AFP folder")
     # parser.add_argument("--std_folder", help="Path to the STD folder")
+    parser.add_argument("--test_folder", help="Path to the PISA test set folder")
     parser.add_argument(
-        "--test_folder", help="Path to the PISA test set folder")
+        "--results_file", default="pisa_dataset.jsonl", help="Path to the results file"
+    )
     parser.add_argument(
-        "--results_file", default='pisa_dataset.jsonl', help="Path to the results file")
-    parser.add_argument("--max_items", default=None,
-                        type=int, help="Maximum jsons to process")
-    parser.add_argument("--tokenizer_model", type=str,
-                        help="sentencepiece model")
+        "--max_items", default=None, type=int, help="Maximum jsons to process"
+    )
+    parser.add_argument("--tokenizer_model", type=str, help="sentencepiece model")
     args = parser.parse_args()
 
     test_set = get_theorem_statements_from_folder(args.test_folder)
     afp_dataset_decontaminated = create_dataset(
-        args.afp_folder, test_set, max_items=args.max_items)
+        args.afp_folder, test_set, max_items=args.max_items
+    )
     # std_dataset_decontaminated = create_dataset(args.std_folder, test_set)
 
     sp = spm.SentencePieceProcessor(model_file=args.tokenizer_model)
 
-    afp_dataset_decontaminated = consolidate_by_file(
-        afp_dataset_decontaminated, sp)
+    afp_dataset_decontaminated = consolidate_by_file(afp_dataset_decontaminated, sp)
 
     num_tokens = sum(x["meta"]["tokens"] for x in afp_dataset_decontaminated)
 
