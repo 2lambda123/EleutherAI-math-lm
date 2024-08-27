@@ -2,7 +2,7 @@
 
 <p float="left">
 <!-- <img src="./llemma_logo.jpg" width="15%"/> -->
-  
+
 </p>
 
 [ArXiv](#) | [Models](https://huggingface.co/EleutherAI/llemma_34b) | [Data](https://huggingface.co/datasets/EleutherAI/proof-pile-2) | [Code](https://github.com/EleutherAI/math-lm) | [Blog](#) | [Sample Explorer](https://keirp.com/llemma-sample-explorer/)
