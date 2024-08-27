@@ -19,14 +19,14 @@ def save_figure(
 ):
     """
 
-    :param x: List[float]: 
-    :param y: List[float]: 
-    :param labels: List[str]: 
-    :param colors: List[str]: 
-    :param markers: List[str]: 
-    :param task_name: str: 
-    :param ylabel: str: 
-    :param title: str: 
+    :param x: List[float]:
+    :param y: List[float]:
+    :param labels: List[str]:
+    :param colors: List[str]:
+    :param markers: List[str]:
+    :param task_name: str:
+    :param ylabel: str:
+    :param title: str:
 
     """
     fig, ax = plt.subplots(figsize=(10, 10))
