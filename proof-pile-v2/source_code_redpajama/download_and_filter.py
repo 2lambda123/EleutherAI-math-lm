@@ -89,7 +89,7 @@ EXTENSIONS = [
 def init_pool_processes(the_locks):
     """Initialize each process with a global variable lock.
 
-    :param the_locks: 
+    :param the_locks:
 
     """
     global locks
@@ -115,7 +115,7 @@ class CustomProcessPoolExecutor(ProcessPoolExecutor):
 def _get_ext(example):
     """
 
-    :param example: 
+    :param example:
 
     """
     _, extension_with_dot = os.path.splitext(example["meta"]["path"])
@@ -125,7 +125,7 @@ def _get_ext(example):
 def _convert_to_stack_format(example):
     """
 
-    :param example: 
+    :param example:
 
     """
     return {
@@ -140,7 +140,7 @@ def _convert_to_stack_format(example):
 def _convert_to_gh_format(example):
     """
 
-    :param example: 
+    :param example:
 
     """
     return {
@@ -153,8 +153,8 @@ def _convert_to_gh_format(example):
 def download_jsonl(url: str, filepath: str):
     """
 
-    :param url: str: 
-    :param filepath: str: 
+    :param url: str:
+    :param filepath: str:
 
     """
     with open(filepath, "wb") as download_file:
@@ -176,8 +176,8 @@ def download_jsonl(url: str, filepath: str):
 def get_jsonl(url: str, raw_dir: str) -> List:
     """
 
-    :param url: str: 
-    :param raw_dir: str: 
+    :param url: str:
+    :param raw_dir: str:
 
     """
     filename = os.path.basename(urlparse(url).path)
@@ -213,7 +213,7 @@ def get_jsonl(url: str, raw_dir: str) -> List:
 def filter_fn(example):
     """
 
-    :param example: 
+    :param example:
 
     """
     extension = _get_ext(example)
@@ -256,7 +256,7 @@ ENC = tiktoken.get_encoding("cl100k_base")
 def process(example):
     """
 
-    :param example: 
+    :param example:
 
     """
     extension = _get_ext(example)
@@ -274,9 +274,9 @@ def process(example):
 def get_filter_save(url: str, raw_dir: str, data_dir: str):
     """
 
-    :param url: str: 
-    :param raw_dir: str: 
-    :param data_dir: str: 
+    :param url: str:
+    :param raw_dir: str:
+    :param data_dir: str:
 
     """
     data = get_jsonl(url=url, raw_dir=raw_dir)
@@ -313,11 +313,11 @@ def concurrent_get_filter_save(
 ):
     """
 
-    :param urls: List[str]: 
-    :param raw_dir: str: 
-    :param data_dir: str: 
-    :param meta_dir: str: 
-    :param num_workers: int: 
+    :param urls: List[str]:
+    :param raw_dir: str:
+    :param data_dir: str:
+    :param meta_dir: str:
+    :param num_workers: int:
 
     """
     to_map = partial(get_filter_save, raw_dir=raw_dir, data_dir=data_dir)
@@ -348,7 +348,7 @@ def concurrent_get_filter_save(
 def main(args):
     """
 
-    :param args: 
+    :param args:
 
     """
     # if os.path.isdir(args.data_dir):
