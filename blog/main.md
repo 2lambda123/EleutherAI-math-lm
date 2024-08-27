@@ -6,7 +6,7 @@
 </p>
 
 
-
+[ArXiv](#) | [Models](https://huggingface.co/EleutherAI/llemma_34b) | [Data](https://huggingface.co/datasets/EleutherAI/proof-pile-2) | [Code](https://github.com/EleutherAI/math-lm) | [Blog](#) | [Sample Explorer](https://keirp.com/llemma-sample-explorer/)
 
 <!-- ![put sample model output here]() -->
 
@@ -38,6 +38,8 @@ Because scale reliably produces better generalist models, specialized models oft
 
 The first step in developing Llemma was to assemble a large, high-quality dataset of mathematical and scientific content. Minerva used 38 billion unique tokens consisting of arXiv and math web pages. Our dataset, the Proof-Pile II, contains arXiv, web data, and code for a total of 55B unique tokens. 
 
+The Proof-Pile II is a successor to the original [Proof-Pile](https://huggingface.co/datasets/hoskinson-center/proof-pile), a smaller dataset of mathematics documents.
+
 <img src="./dataset.png" width="35%"/>
 
 For the arXiv portion of the Proof-Pile-2, we use the RedPajama arXiv subset. Our web and code subsets, on the other hand, are new. We describe them below.
@@ -53,6 +55,10 @@ We trained Llemma 7B for 200B tokens and Llemma 34B for 50B tokens. This amounts
 Our first evaluation setting is chain-of-thought mathematical reasoning, measured by benchmarks such as MATH and GSM8k. This is a setting where open source base models have lagged: Llama-2 and Code Llama's MATH scores are in the mid-single digits. Llemma achieves a significant improvement on these tasks, and even surpasses Minerva when controlled for model parameters. 
 
 <img src="./plot.png" width="37%"/>
+
+Majority voting provides a further boost for Llemma, with Llemma 34B's MATH maj@256 score almost matching Minerva 62B.
+
+<img src="./plot_majk.png" width="37%"/>
 
 The code subset of the Proof-Pile-2 endows Llemma with capabilities Minerva lacks without additional finetuning. In this blog post, we'll discuss *formal theorem proving*. Our paper contains additional results on a Python-aided problem solving task. 
 
@@ -82,6 +88,6 @@ Llemma is a pretrained base model; therefore, our evaluations are only a startin
 
 **Reward modeling and reinforcement learning**. [Recent work by OpenAI](https://arxiv.org/abs/2305.20050) demonstrates the effectiveness of guiding mathematical problem solving with a reward model. How can we improve upon this approach?
 
-**Formal theorem proving**. Our in-context learning evaluations are minimal working examples of formal theorem proving with Llemma. What is possible with some finetuning and better algorithms? Can Llemma models tackle the [IMO Grand Challenge](https://arxiv.org/abs/2305.20050)? 
+**Formal theorem proving**. Our in-context learning evaluations are minimal working examples of formal theorem proving with Llemma. What is possible with [some finetuning](https://arxiv.org/abs/2303.04910) and [better algorithms](https://arxiv.org/abs/2202.01344)? Can Llemma models tackle the [IMO Grand Challenge](https://arxiv.org/abs/2305.20050)? 
 
 **Algorithmic Reasoning**. With very careful prompting, language models can [learn to execute algorithms](https://arxiv.org/abs/2211.09066). What would it take to elicit algorithmic reasoning from Llemma more flexibly and reliably?
