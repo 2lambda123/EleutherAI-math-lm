@@ -4,27 +4,54 @@ import numpy as np
 # Set to serif style font
 plt.rcParams["font.family"] = "serif"
 
-
 code_llama_data = [
-    {"name": "Code Llama 7B", "params": 7, "score": 4.4},
-    {"name": "Code Llama 34B", "params": 34, "score": 11.9},
+    {
+        "name": "Code Llama 7B",
+        "params": 7,
+        "score": 4.4
+    },
+    {
+        "name": "Code Llama 34B",
+        "params": 34,
+        "score": 11.9
+    },
 ]
 
 llemma_data = [
-    {"name": "Llemma 7B", "params": 7, "score": 17.2},
-    {"name": "Llemma 34B", "params": 34, "score": 24.1},
+    {
+        "name": "Llemma 7B",
+        "params": 7,
+        "score": 17.2
+    },
+    {
+        "name": "Llemma 34B",
+        "params": 34,
+        "score": 24.1
+    },
 ]
 
 minerva_data = [
-    {"name": "Minerva 8B", "params": 8, "score": 14.1},
-    {"name": "Minerva 62B", "params": 62, "score": 27.6},
+    {
+        "name": "Minerva 8B",
+        "params": 8,
+        "score": 14.1
+    },
+    {
+        "name": "Minerva 62B",
+        "params": 62,
+        "score": 27.6
+    },
 ]
 
 colors = {"Code Llama": "red", "Llemma": "blue", "Minerva": "orange"}
 
 markers = {"Code Llama": "o", "Llemma": "^", "Minerva": "s"}
 
-data = {"Code Llama": code_llama_data, "Llemma": llemma_data, "Minerva": minerva_data}
+data = {
+    "Code Llama": code_llama_data,
+    "Llemma": llemma_data,
+    "Minerva": minerva_data
+}
 
 fig, ax = plt.subplots(figsize=(6, 6))
 
@@ -58,7 +85,11 @@ ax.set_ylabel("Math Pass@1 (Accuracy)")
 ax.grid(True, which="both", linestyle="--", linewidth=0.5)
 
 # Remove ticks
-ax.tick_params(axis="x", which="both", bottom=False, top=False, labelbottom=True)
+ax.tick_params(axis="x",
+               which="both",
+               bottom=False,
+               top=False,
+               labelbottom=True)
 # Set the background of the plot to off-white
 ax.set_facecolor("#F5F5F5")
 # Remove the frame of the chart
