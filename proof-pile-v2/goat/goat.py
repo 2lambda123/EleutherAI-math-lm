@@ -24,38 +24,24 @@ def addition(k=1000):
 
     """
     # Addition up to 16 digits
-    pairs = (
-        [
-            (random.randint(10 ** (i - 1), 10**i), random.randint(10 ** (j - 1), 10**j))
-            for i in range(1, 16)
-            for j in range(i, 16)
-            for _ in range(k)
-        ]
-        + [
-            (random.randint(10 ** (i - 1), 10**i), random.randint(10 ** (j - 1), 10**j))
-            for i in range(3, 16)
-            for j in range(i, 16)
-            for _ in range(k)
-        ]
-        + [
-            (random.randint(10 ** (i - 1), 10**i), random.randint(10 ** (j - 1), 10**j))
-            for i in range(6, 16)
-            for j in range(i, 16)
-            for _ in range(k)
-        ]
-        + [
-            (random.randint(10 ** (i - 1), 10**i), random.randint(10 ** (j - 1), 10**j))
-            for i in range(9, 16)
-            for j in range(i, 16)
-            for _ in range(k)
-        ]
-        + [
-            (random.randint(10 ** (i - 1), 10**i), random.randint(10 ** (j - 1), 10**j))
-            for i in range(12, 16)
-            for j in range(i, 16)
-            for _ in range(k)
-        ]
-    )
+    pairs = ([(random.randint(10**(i - 1), 10**
+                              i), random.randint(10**(j - 1), 10**j))
+              for i in range(1, 16) for j in range(i, 16)
+              for _ in range(k)] + [(random.randint(
+                  10**(i - 1), 10**i), random.randint(10**(j - 1), 10**j))
+                                    for i in range(3, 16)
+                                    for j in range(i, 16) for _ in range(k)] +
+             [(random.randint(10**(i - 1), 10**
+                              i), random.randint(10**(j - 1), 10**j))
+              for i in range(6, 16) for j in range(i, 16) for _ in range(k)] +
+             [(random.randint(10**(i - 1), 10**
+                              i), random.randint(10**(j - 1), 10**j))
+              for i in range(9, 16)
+              for j in range(i, 16)
+              for _ in range(k)] + [(random.randint(
+                  10**(i - 1), 10**i), random.randint(10**(j - 1), 10**j))
+                                    for i in range(12, 16)
+                                    for j in range(i, 16) for _ in range(k)])
 
     random.shuffle(pairs)
 
@@ -68,7 +54,11 @@ def addition(k=1000):
         question = f"{num1} + {num2}"
         output = f"{num1} + {num2} = {answer}"
         assert output.split()[-1] == str(answer)
-        data.append({"input": question, "output": output, "answer": str(answer)})
+        data.append({
+            "input": question,
+            "output": output,
+            "answer": str(answer)
+        })
     return data
 
 
@@ -79,38 +69,24 @@ def subtraction(k=1000):
 
     """
     # Subtraction up to 16 digits
-    pairs = (
-        [
-            (random.randint(10 ** (i - 1), 10**i), random.randint(10 ** (j - 1), 10**j))
-            for i in range(1, 16)
-            for j in range(i, 16)
-            for _ in range(k)
-        ]
-        + [
-            (random.randint(10 ** (i - 1), 10**i), random.randint(10 ** (j - 1), 10**j))
-            for i in range(3, 16)
-            for j in range(i, 16)
-            for _ in range(k)
-        ]
-        + [
-            (random.randint(10 ** (i - 1), 10**i), random.randint(10 ** (j - 1), 10**j))
-            for i in range(6, 16)
-            for j in range(i, 16)
-            for _ in range(k)
-        ]
-        + [
-            (random.randint(10 ** (i - 1), 10**i), random.randint(10 ** (j - 1), 10**j))
-            for i in range(9, 16)
-            for j in range(i, 16)
-            for _ in range(k)
-        ]
-        + [
-            (random.randint(10 ** (i - 1), 10**i), random.randint(10 ** (j - 1), 10**j))
-            for i in range(12, 16)
-            for j in range(i, 16)
-            for _ in range(k)
-        ]
-    )
+    pairs = ([(random.randint(10**(i - 1), 10**
+                              i), random.randint(10**(j - 1), 10**j))
+              for i in range(1, 16) for j in range(i, 16)
+              for _ in range(k)] + [(random.randint(
+                  10**(i - 1), 10**i), random.randint(10**(j - 1), 10**j))
+                                    for i in range(3, 16)
+                                    for j in range(i, 16) for _ in range(k)] +
+             [(random.randint(10**(i - 1), 10**
+                              i), random.randint(10**(j - 1), 10**j))
+              for i in range(6, 16) for j in range(i, 16) for _ in range(k)] +
+             [(random.randint(10**(i - 1), 10**
+                              i), random.randint(10**(j - 1), 10**j))
+              for i in range(9, 16)
+              for j in range(i, 16)
+              for _ in range(k)] + [(random.randint(
+                  10**(i - 1), 10**i), random.randint(10**(j - 1), 10**j))
+                                    for i in range(12, 16)
+                                    for j in range(i, 16) for _ in range(k)])
 
     random.shuffle(pairs)
 
@@ -124,7 +100,11 @@ def subtraction(k=1000):
         question = f"{num1} - {num2}"
         output = f"{num1} - {num2} = {answer}"
         assert output.split()[-1] == str(answer)
-        data.append({"input": question, "output": output, "answer": str(answer)})
+        data.append({
+            "input": question,
+            "output": output,
+            "answer": str(answer)
+        })
     return data
 
 
@@ -135,44 +115,22 @@ def mul_1_n(k=1000):
 
     """
     # 1xn, up to 16 digits.
-    pairs = (
-        [
-            (random.randint(2, 9), random.randint(10 ** (j - 1) + 1, 10**j))
-            for j in range(2, 5)
-            for _ in range(4 * k)
-        ]
-        + [
-            (random.randint(2, 9), random.randint(10 ** (j - 1) + 1, 10**j))
-            for j in range(5, 8)
-            for _ in range(8 * k)
-        ]
-        + [
-            (random.randint(2, 9), random.randint(10 ** (j - 1) + 1, 10**j))
-            for j in range(8, 12)
-            for _ in range(12 * k)
-        ]
-        + [
-            (random.randint(2, 9), random.randint(10 ** (j - 1) + 1, 10**j))
-            for j in range(12, 17)
-            for _ in range(16 * k)
-        ]
-        + [
-            (0, random.randint(10 ** (j - 1) + 1, 10**j - 1))
-            for j in range(2, 16)
-            for _ in range(k // 2)
-        ]
-        + [
-            (1, random.randint(10 ** (j - 1) + 1, 10**j - 1))
-            for j in range(2, 16)
-            for _ in range(k // 2)
-        ]
-        + [
-            (10, random.randint(10 ** (j - 1) + 1, 10**j - 1))
-            for j in range(2, 16)
-            for _ in range(k // 2)
-        ]
-        + [(random.randint(1, 9), random.randint(1, 9)) for _ in range(k // 2)]
-    )
+    pairs = ([(random.randint(2, 9), random.randint(10**(j - 1) + 1, 10**j))
+              for j in range(2, 5) for _ in range(4 * k)] +
+             [(random.randint(2, 9), random.randint(10**(j - 1) + 1, 10**j))
+              for j in range(5, 8) for _ in range(8 * k)] +
+             [(random.randint(2, 9), random.randint(10**(j - 1) + 1, 10**j))
+              for j in range(8, 12) for _ in range(12 * k)] +
+             [(random.randint(2, 9), random.randint(10**(j - 1) + 1, 10**j))
+              for j in range(12, 17) for _ in range(16 * k)] +
+             [(0, random.randint(10**(j - 1) + 1, 10**j - 1))
+              for j in range(2, 16) for _ in range(k // 2)] +
+             [(1, random.randint(10**(j - 1) + 1, 10**j - 1))
+              for j in range(2, 16) for _ in range(k // 2)] +
+             [(10, random.randint(10**(j - 1) + 1, 10**j - 1))
+              for j in range(2, 16) for _ in range(k // 2)] +
+             [(random.randint(1, 9), random.randint(1, 9))
+              for _ in range(k // 2)])
 
     random.shuffle(pairs)
 
@@ -182,7 +140,7 @@ def mul_1_n(k=1000):
 
     for num1, num2 in pairs:
         if random.random() < 0.1:
-            num1 = num1 * (10 ** random.randint(1, 6))
+            num1 = num1 * (10**random.randint(1, 6))
 
         if random.random() < 0.5:
             num1, num2 = num2, num1
@@ -192,7 +150,11 @@ def mul_1_n(k=1000):
         output = f"{num1} * {num2} = {answer}"
 
         assert output.split()[-1] == str(answer)
-        data.append({"input": question, "output": output, "answer": str(answer)})
+        data.append({
+            "input": question,
+            "output": output,
+            "answer": str(answer)
+        })
     return data
 
 
@@ -203,43 +165,23 @@ def mul_n_m(k=1000):
 
     """
     # multi-digit multiplication, with the product up to 12 digits
-    pairs = (
-        [
-            (
-                random.randint(10 ** (i - 1) + 1, 10**i - 1),
-                random.randint(10 ** (j - 1) + 1, 10**j - 1),
-            )
-            for i in range(2, 7)
-            for j in range(i, 13 - i)
-            for _ in range(10 * k)
-        ]
-        + [
-            (
-                random.randint(10 ** (i - 1) + 1, 10**i - 1),
-                random.randint(10 ** (j - 1) + 1, 10**j - 1),
-            )
-            for i in range(4, 7)
-            for j in range(i, 13 - i)
-            for _ in range(10 * k)
-        ]
-        + [
-            (
-                random.randint(10 ** (i - 1) + 1, 10**i - 1),
-                random.randint(10 ** (j - 1) + 1, 10**j - 1),
-            )
-            for i in range(5, 7)
-            for j in range(i, 13 - i)
-            for _ in range(10 * k)
-        ]
-        + [
-            (
-                random.randint(10 ** (i - 1) + 1, 10**i - 1),
-                random.randint(10 ** (i - 1) + 1, 10**i - 1),
-            )
-            for i in range(3, 7)
-            for _ in range(10 * k)
-        ]
-    )
+    pairs = ([(
+        random.randint(10**(i - 1) + 1, 10**i - 1),
+        random.randint(10**(j - 1) + 1, 10**j - 1),
+    ) for i in range(2, 7) for j in range(i, 13 - i)
+              for _ in range(10 * k)] + [(
+                  random.randint(10**(i - 1) + 1, 10**i - 1),
+                  random.randint(10**(j - 1) + 1, 10**j - 1),
+              ) for i in range(4, 7) for j in range(i, 13 - i)
+                                         for _ in range(10 * k)] +
+             [(
+                 random.randint(10**(i - 1) + 1, 10**i - 1),
+                 random.randint(10**(j - 1) + 1, 10**j - 1),
+             ) for i in range(5, 7) for j in range(i, 13 - i)
+              for _ in range(10 * k)] + [(
+                  random.randint(10**(i - 1) + 1, 10**i - 1),
+                  random.randint(10**(i - 1) + 1, 10**i - 1),
+              ) for i in range(3, 7) for _ in range(10 * k)])
 
     random.shuffle(pairs)
 
@@ -258,18 +200,15 @@ def mul_n_m(k=1000):
 
         num_digits_1 = len(str(num1))
         num_digits_2 = len(str(num2))
-        if (
-            num1 % (10 ** (num_digits_1 - 1)) == 0
-            or num2 % (10 ** (num_digits_2 - 1)) == 0
-        ):
+        if (num1 % (10**(num_digits_1 - 1)) == 0
+                or num2 % (10**(num_digits_2 - 1)) == 0):
             cot = question + " = " + str(answer)
         else:
             num2_digits = [int(d) for d in str(num2)]
 
             split_terms = [
-                d * 10 ** (len(num2_digits) - i - 1)
-                for i, d in enumerate(num2_digits)
-                if d != 0
+                d * 10**(len(num2_digits) - i - 1)
+                for i, d in enumerate(num2_digits) if d != 0
             ]
             split = f"""{num1} * ({" + ".join(str(x) for x in split_terms)})"""
             expansion = " + ".join([f"{num1} * {x}" for x in split_terms])
@@ -301,49 +240,24 @@ def div_n_1(k=1000):
     """
     # Division n/1, with n up to 16 digits
     # pairs represent (divisor, quotient)
-    pairs = (
-        [
-            (random.randint(2, 9), random.randint(10 ** (j - 1) + 1, 10**j))
-            for j in range(1, 5)
-            for _ in range(4 * k)
-        ]
-        + [
-            (random.randint(2, 9), random.randint(10 ** (j - 1) + 1, 10**j))
-            for j in range(5, 8)
-            for _ in range(8 * k)
-        ]
-        + [
-            (random.randint(2, 9), random.randint(10 ** (j - 1) + 1, 10**j))
-            for j in range(8, 12)
-            for _ in range(12 * k)
-        ]
-        + [
-            (random.randint(2, 9), random.randint(10 ** (j - 1) + 1, 10**j))
-            for j in range(12, 17)
-            for _ in range(16 * k)
-        ]
-        + [
-            (1, random.randint(10 ** (j - 1) + 1, 10**j))
-            for j in range(1, 17)
-            for _ in range(k // 2)
-        ]
-        + [
-            (10, random.randint(10 ** (j - 1) + 1, 10**j))
-            for j in range(1, 17)
-            for _ in range(k // 2)
-        ]
-        + [
-            (random.randint(10 ** (j - 1) + 1, 10**j), 0)
-            for j in range(1, 17)
-            for _ in range(k // 10)
-        ]
-        + [(random.randint(1, 10), random.randint(1, 10)) for _ in range(k // 2)]
-        + [
-            (0, random.randint(10 ** (j - 1) + 1, 10**j))
-            for j in range(1, 18)
-            for _ in range(k // 10)
-        ]
-    )
+    pairs = ([(random.randint(2, 9), random.randint(10**(j - 1) + 1, 10**j))
+              for j in range(1, 5) for _ in range(4 * k)] +
+             [(random.randint(2, 9), random.randint(10**(j - 1) + 1, 10**j))
+              for j in range(5, 8) for _ in range(8 * k)] +
+             [(random.randint(2, 9), random.randint(10**(j - 1) + 1, 10**j))
+              for j in range(8, 12) for _ in range(12 * k)] +
+             [(random.randint(2, 9), random.randint(10**(j - 1) + 1, 10**j))
+              for j in range(12, 17) for _ in range(16 * k)] +
+             [(1, random.randint(10**(j - 1) + 1, 10**j))
+              for j in range(1, 17) for _ in range(k // 2)] +
+             [(10, random.randint(10**(j - 1) + 1, 10**j))
+              for j in range(1, 17) for _ in range(k // 2)] +
+             [(random.randint(10**(j - 1) + 1, 10**j), 0)
+              for j in range(1, 17) for _ in range(k // 10)] +
+             [(random.randint(1, 10), random.randint(1, 10))
+              for _ in range(k // 2)] +
+             [(0, random.randint(10**(j - 1) + 1, 10**j))
+              for j in range(1, 18) for _ in range(k // 10)])
 
     random.shuffle(pairs)
 
@@ -367,12 +281,11 @@ def div_n_1(k=1000):
         dividend = num1 * num2 + remainder
 
         question = f"{dividend} / {num1}"
-        cot = (
-            question + " = " + str(num2) + " R " + str(remainder)
-            if remainder != 0
-            else question + " = " + str(num2)
-        )
-        answer = str(num2) + " R " + str(remainder) if remainder != 0 else str(num2)
+        cot = (question + " = " + str(num2) + " R " +
+               str(remainder) if remainder != 0 else question + " = " +
+               str(num2))
+        answer = str(num2) + " R " + str(remainder) if remainder != 0 else str(
+            num2)
 
         assert cot.split()[-1] == answer.split()[-1]
         data.append({"input": question, "output": cot, "answer": answer})
@@ -388,23 +301,14 @@ def div_n_m(k=1000):
     # Division n/m with dividend<=12 digits and quotient<=7 digits
     # pairs represent (dividend, divisor)
 
-    pairs = [
-        (
-            random.randint(10 ** (j - 1) + 1, 10**j),
-            random.randint(10 ** (i - 1) + 1, 10**i),
-        )
-        for i in range(2, 7)
-        for j in range(i + 1, i + 7)
-        for _ in range(10 * k)
-    ] + [
-        (
-            random.randint(10 ** (j - 1) + 1, 10**j),
-            random.randint(10 ** (i - 1) + 1, 10**i),
-        )
-        for i in range(2, 7)
-        for j in range(2, i + 7)
-        for _ in range(k)
-    ]
+    pairs = [(
+        random.randint(10**(j - 1) + 1, 10**j),
+        random.randint(10**(i - 1) + 1, 10**i),
+    ) for i in range(2, 7) for j in range(i + 1, i + 7)
+             for _ in range(10 * k)] + [(
+                 random.randint(10**(j - 1) + 1, 10**j),
+                 random.randint(10**(i - 1) + 1, 10**i),
+             ) for i in range(2, 7) for j in range(2, i + 7) for _ in range(k)]
 
     random.shuffle(pairs)
 
@@ -439,8 +343,7 @@ def div_n_m(k=1000):
             while left >= num2:
                 if int(str(quotient)[i]) != 0:
                     intermediate = int(
-                        str(quotient)[i] + "0" * (len(str(quotient)) - 1 - i)
-                    )
+                        str(quotient)[i] + "0" * (len(str(quotient)) - 1 - i))
                     answer = num2 * intermediate
                     new_left = left - answer
                     step = f"{left} - {num2} * {intermediate} = {left} - {answer} = {new_left}\n"
@@ -485,33 +388,25 @@ def add_instructions(data, template_name="./templates.json"):
             if " + " in arithmetic:
                 arithmetic = "the sum of " + arithmetic.replace("+", "and")
             if " - " in arithmetic:
-                arithmetic = "the difference of " + arithmetic.replace("-", "and")
+                arithmetic = "the difference of " + arithmetic.replace(
+                    "-", "and")
             if " * " in arithmetic:
                 arithmetic = "the product of " + arithmetic.replace("*", "and")
             if " / " in arithmetic:
                 arithmetic = "the quotient and remainder of " + arithmetic.replace(
-                    "/", "and"
-                )
+                    "/", "and")
 
         if random.random() < 0.5:
             arithmetic = arithmetic.replace("*", "x")
 
         if random.random() < 0.1:
             arithmetic = arithmetic.replace("+", "plus").replace("-", "minus")
-            arithmetic = (
-                arithmetic.replace(" x ", " times ")
-                .replace("*", "multiplied by")
-                .replace("/", "divided by")
-            )
+            arithmetic = (arithmetic.replace(" x ", " times ").replace(
+                "*", "multiplied by").replace("/", "divided by"))
 
         if random.random() < 0.5:
-            if (
-                "+" in arithmetic
-                or "-" in arithmetic
-                or "*" in arithmetic
-                or "/" in arithmetic
-                or "x" in arithmetic
-            ):
+            if ("+" in arithmetic or "-" in arithmetic or "*" in arithmetic
+                    or "/" in arithmetic or "x" in arithmetic):
                 arithmetic = arithmetic.replace(" ", "")
 
         num = random.randint(1, 50)
@@ -555,8 +450,8 @@ def make_splits(data, validation_frac=0.005):
 
     splits = {
         "train": data[:train_size],
-        "valid": data[train_size : (train_size + validation_size)],
-        "test": data[(train_size + validation_size) :],
+        "valid": data[train_size:(train_size + validation_size)],
+        "test": data[(train_size + validation_size):],
     }
     for k, v in splits.items():
         print(k, len(v), sep="\t")
@@ -603,16 +498,13 @@ def num_tokens(data):
     num_batches = len(data) // batch_size
     tokens = 0
     for i in trange(num_batches + 1):
-        batch = data[i * batch_size : (i + 1) * batch_size]
+        batch = data[i * batch_size:(i + 1) * batch_size]
         if len(batch) > 0:
-            tokens_ = sum(
-                [
-                    len(x)
-                    for x in tokenizer.encode_batch(
-                        [x["text"] for x in batch], disallowed_special=()
-                    )
-                ]
-            )
+            tokens_ = sum([
+                len(x)
+                for x in tokenizer.encode_batch([x["text"] for x in batch],
+                                                disallowed_special=())
+            ])
             tokens += tokens_
     return tokens
 
@@ -624,18 +516,18 @@ if __name__ == "__main__":
     parser.add_argument("--templates-file", type=str, default="templates.json")
     parser.add_argument("--output-dir", type=str, default="data_jsonl")
     parser.add_argument("--meta-dir", type=str, default="meta_jsonl")
-    parser.add_argument(
-        "--k", type=int, default=1000, help="controls number of samples per pair type"
-    )
+    parser.add_argument("--k",
+                        type=int,
+                        default=1000,
+                        help="controls number of samples per pair type")
     args = parser.parse_args()
 
     random.seed(123321)
 
     # Generate arithmetic data
     k = args.k
-    data = (
-        addition(k) + subtraction(k) + mul_1_n(k) + mul_n_m(k) + div_n_1(k) + div_n_m(k)
-    )
+    data = (addition(k) + subtraction(k) + mul_1_n(k) + mul_n_m(k) +
+            div_n_1(k) + div_n_m(k))
     print("Arithmetic dataset generated")
     print("Total:", len(data))
 
@@ -651,6 +543,9 @@ if __name__ == "__main__":
     splits = make_splits(data, validation_frac=0.005)
 
     save(splits, args.output_dir)
-    save_metadata({"num_tokens": tokens, "num_examples": len(data)}, args.meta_dir)
+    save_metadata({
+        "num_tokens": tokens,
+        "num_examples": len(data)
+    }, args.meta_dir)
 
     print("Done")
