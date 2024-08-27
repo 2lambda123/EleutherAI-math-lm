@@ -466,7 +466,7 @@ def div_n_m(k=1000):
 def add_instructions(data, template_name="./templates.json"):
     """
 
-    :param data: 
+    :param data:
     :param template_name:  (Default value = "./templates.json")
 
     """
@@ -531,7 +531,7 @@ def add_instructions(data, template_name="./templates.json"):
 def reformat(data):
     """
 
-    :param data: 
+    :param data:
 
     """
     for i in range(len(data)):
@@ -543,7 +543,7 @@ def reformat(data):
 def make_splits(data, validation_frac=0.005):
     """
 
-    :param data: 
+    :param data:
     :param validation_frac:  (Default value = 0.005)
 
     """
@@ -566,8 +566,8 @@ def make_splits(data, validation_frac=0.005):
 def save(splits, output_dir):
     """
 
-    :param splits: 
-    :param output_dir: 
+    :param splits:
+    :param output_dir:
 
     """
     Path(output_dir).mkdir(parents=True, exist_ok=True)
@@ -582,8 +582,8 @@ def save(splits, output_dir):
 def save_metadata(metadata, meta_dir):
     """
 
-    :param metadata: 
-    :param meta_dir: 
+    :param metadata:
+    :param meta_dir:
 
     """
     Path(meta_dir).mkdir(parents=True, exist_ok=True)
@@ -594,7 +594,7 @@ def save_metadata(metadata, meta_dir):
 def num_tokens(data):
     """
 
-    :param data: 
+    :param data:
 
     """
     print("Counting tokens..")
