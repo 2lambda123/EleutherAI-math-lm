@@ -25,8 +25,25 @@ sys.path.append("../source_code/")
 
 PYTHON_EXTENSIONS = ["py", "pyw"]
 C_EXTENSIONS = ["c", "h"]
-CPP_EXTENSIONS = ["cpp", "cxx", "cc", "c++", "hpp", "hxx", "hh", "h++",]
-FORTRAN_EXTENSIONS = ["for", "ftn", "f77", "f90", "f95", "f03", "f08",]
+CPP_EXTENSIONS = [
+    "cpp",
+    "cxx",
+    "cc",
+    "c++",
+    "hpp",
+    "hxx",
+    "hh",
+    "h++",
+]
+FORTRAN_EXTENSIONS = [
+    "for",
+    "ftn",
+    "f77",
+    "f90",
+    "f95",
+    "f03",
+    "f08",
+]
 
 EXTENSIONS = [
     # Scientific/statistical computing
@@ -68,8 +85,7 @@ EXTENSIONS = [
 
 
 def init_pool_processes(the_locks):
-    '''Initialize each process with a global variable lock.
-    '''
+    """Initialize each process with a global variable lock."""
     global locks
     locks = the_locks
 
@@ -96,7 +112,7 @@ def _get_ext(example):
 def _convert_to_stack_format(example):
     return {
         "content": example["text"],
-        "size": len(example["text"].encode('utf-8')),
+        "size": len(example["text"].encode("utf-8")),
         "max_stars_repo_path": example["meta"]["path"],
         "ext": _get_ext(example),
         **example,
@@ -106,10 +122,7 @@ def _convert_to_stack_format(example):
 def _convert_to_gh_format(example):
     return {
         "text": example["text"],
-        "meta": {
-            "repo": example["meta"]["repo_name"],
-            **example["meta"]
-        }
+        "meta": {"repo": example["meta"]["repo_name"], **example["meta"]},
     }
 
 
@@ -119,12 +132,15 @@ def download_jsonl(url: str, filepath: str):
         with httpx.stream("GET", url, timeout=30) as response:
             total = int(response.headers["Content-Length"])
 
-            with tqdm(total=total, unit_scale=True, unit_divisor=1024, unit="B") as progress:
+            with tqdm(
+                total=total, unit_scale=True, unit_divisor=1024, unit="B"
+            ) as progress:
                 num_bytes_downloaded = response.num_bytes_downloaded
                 for chunk in response.iter_bytes():
                     download_file.write(chunk)
                     progress.update(
-                        response.num_bytes_downloaded - num_bytes_downloaded)
+                        response.num_bytes_downloaded - num_bytes_downloaded
+                    )
                     num_bytes_downloaded = response.num_bytes_downloaded
 
 
@@ -237,19 +253,17 @@ def get_filter_save(url: str, raw_dir: str, data_dir: str):
 
 
 def concurrent_get_filter_save(
-        urls: List[str],
-        raw_dir: str,
-        data_dir: str,
-        meta_dir: str,
-        num_workers: int,
+    urls: List[str],
+    raw_dir: str,
+    data_dir: str,
+    meta_dir: str,
+    num_workers: int,
 ):
     to_map = partial(get_filter_save, raw_dir=raw_dir, data_dir=data_dir)
 
     locks = {k: Lock() for k in EXTENSIONS}
     with CustomProcessPoolExecutor(
-            max_workers=num_workers,
-            initializer=init_pool_processes,
-            initargs=(locks,)
+        max_workers=num_workers, initializer=init_pool_processes, initargs=(locks,)
     ) as executor:
         token_count_dicts = list(executor.map(to_map, urls))
 
@@ -291,11 +305,11 @@ def main(args):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument('--urls', type=str, default='urls.txt')
-    parser.add_argument('--data-dir', type=str, default='data_jsonl/')
-    parser.add_argument('--meta-dir', type=str, default='meta_json/')
-    parser.add_argument('--raw-dir', type=str, default='raw_rj/')
-    parser.add_argument('--num-workers', type=int, default=16)
+    parser.add_argument("--urls", type=str, default="urls.txt")
+    parser.add_argument("--data-dir", type=str, default="data_jsonl/")
+    parser.add_argument("--meta-dir", type=str, default="meta_json/")
+    parser.add_argument("--raw-dir", type=str, default="raw_rj/")
+    parser.add_argument("--num-workers", type=int, default=16)
 
     args = parser.parse_args()
 
