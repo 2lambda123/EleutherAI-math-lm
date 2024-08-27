@@ -32,7 +32,8 @@ def save_figure(
     fig, ax = plt.subplots(figsize=(10, 10))
     ax.set_facecolor("#F5F5F5")
 
-    all_data = sorted(list(zip(x, y, labels, colors, markers)), key=lambda x: x[3])
+    all_data = sorted(list(zip(x, y, labels, colors, markers)),
+                      key=lambda x: x[3])
     grouped_data = groupby(all_data, key=lambda x: x[3])
 
     for color, group in grouped_data:
@@ -49,9 +50,9 @@ def save_figure(
             )
 
         for left, right in zip(group[:-1], group[1:]):
-            ax.plot(
-                [left[0], right[0]], [left[1], right[1]], linestyle=":", color=color
-            )
+            ax.plot([left[0], right[0]], [left[1], right[1]],
+                    linestyle=":",
+                    color=color)
 
     ax.set_title(f"{task_name} Performance vs Model Size", fontsize=18)
     ax.set_xlabel("Parameters", fontsize=18)
@@ -60,7 +61,11 @@ def save_figure(
     ax.set_axisbelow(True)
 
     # Remove ticks
-    ax.tick_params(axis="x", which="both", bottom=False, top=False, labelbottom=True)
+    ax.tick_params(axis="x",
+                   which="both",
+                   bottom=False,
+                   top=False,
+                   labelbottom=True)
 
     ax.set_xscale("log")
 
