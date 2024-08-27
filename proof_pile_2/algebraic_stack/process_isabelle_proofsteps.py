@@ -1,14 +1,13 @@
-import os
+import argparse
+import code
 import glob
 import json
-from tqdm import tqdm
+import os
 import re
-import argparse
 import textwrap
 
 import sentencepiece as spm
-
-import code
+from tqdm import tqdm
 
 
 def wrap_isabelle_comment(text, width=80):
