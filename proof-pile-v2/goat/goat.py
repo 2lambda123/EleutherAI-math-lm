@@ -8,7 +8,6 @@
 }
 https://github.com/liutiedong/goat
 """
-
 import json
 import os
 import random
