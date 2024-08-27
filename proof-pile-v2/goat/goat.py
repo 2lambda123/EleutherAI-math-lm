@@ -12,8 +12,9 @@ https://github.com/liutiedong/goat
 import json
 import os
 import random
-import tiktoken
 from pathlib import Path
+
+import tiktoken
 from tqdm import trange
 
 
