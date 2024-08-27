@@ -1,8 +1,9 @@
-import matplotlib.pyplot as plt
-from typing import List
-import numpy as np
 from itertools import groupby
-from matplotlib.ticker import FixedLocator, FixedFormatter
+from typing import List
+
+import matplotlib.pyplot as plt
+import numpy as np
+from matplotlib.ticker import FixedFormatter, FixedLocator
 
 
 def save_figure(
