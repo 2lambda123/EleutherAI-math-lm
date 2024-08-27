@@ -13,7 +13,7 @@ from tqdm import tqdm
 def wrap_isabelle_comment(text, width=80):
     """
 
-    :param text: 
+    :param text:
     :param width:  (Default value = 80)
 
     """
@@ -40,7 +40,7 @@ def wrap_isabelle_comment(text, width=80):
 def split_list(lst):
     """
 
-    :param lst: 
+    :param lst:
 
     """
     splits = []
@@ -60,7 +60,7 @@ def split_list(lst):
 def create_outputs(split):
     """
 
-    :param split: 
+    :param split:
 
     """
     res = ""
@@ -83,7 +83,7 @@ def create_outputs(split):
 def extract_filename(filepath):
     """
 
-    :param filepath: 
+    :param filepath:
 
     """
     begin = "thys_"
@@ -99,8 +99,8 @@ def extract_filename(filepath):
 def consolidate_by_file(data, sp):
     """
 
-    :param data: 
-    :param sp: 
+    :param data:
+    :param sp:
 
     """
     row_of_file = dict()
@@ -128,7 +128,7 @@ def consolidate_by_file(data, sp):
 def get_theorem_statements_from_folder(folder_path):
     """
 
-    :param folder_path: 
+    :param folder_path:
 
     """
     theorem_statements = []
@@ -148,8 +148,8 @@ def get_theorem_statements_from_folder(folder_path):
 def create_dataset(path_to_dataset, test_set, decontaminate=True, max_items=None):
     """
 
-    :param path_to_dataset: 
-    :param test_set: 
+    :param path_to_dataset:
+    :param test_set:
     :param decontaminate:  (Default value = True)
     :param max_items:  (Default value = None)
 
