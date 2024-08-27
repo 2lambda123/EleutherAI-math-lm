@@ -76,7 +76,7 @@ for model_type in ['Code Llama', 'Llemma', 'Minerva']:
     ax.plot(x, y, '--', color=color, alpha=0.5)
     # Add labels
     for xi, yi, label in zip(x, y, labels):
-        ax.annotate(label, (xi, yi), fontsize=12, ha='left' if xi < 20 else 'left', 
+        ax.annotate(label, (xi, yi), fontsize=12, ha='left' if xi < 20 else 'left',
                     va='bottom' if xi > 20 else 'top', xytext=(-2, -9) if xi < 20 else (2, 7),
                     textcoords='offset points', color=color, fontweight='bold' if model_type == 'Llemma' else 'normal')
 
@@ -86,7 +86,8 @@ ax.set_ylabel("Math Pass@1 (Accuracy)")
 ax.grid(True, which='both', linestyle='--', linewidth=0.5)
 
 # Remove ticks
-ax.tick_params(axis='x', which='both', bottom=False, top=False, labelbottom=True)
+ax.tick_params(axis='x', which='both', bottom=False,
+               top=False, labelbottom=True)
 # Set the background of the plot to off-white
 ax.set_facecolor('#F5F5F5')
 # Remove the frame of the chart
