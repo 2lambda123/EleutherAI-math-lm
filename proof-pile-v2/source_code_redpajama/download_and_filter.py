@@ -3,18 +3,22 @@ import json
 import os
 import sys
 from concurrent import futures
-from concurrent.futures import ProcessPoolExecutor, ThreadPoolExecutor
+from concurrent.futures import ProcessPoolExecutor
+from concurrent.futures import ThreadPoolExecutor
 from functools import partial
 from multiprocessing import Lock
 from pathlib import Path
-from typing import Dict, List
+from typing import Dict
+from typing import List
 from urllib.parse import urlparse
 
 import backoff
 import httpx
 import ndjson
 import tiktoken
-from process_github import setup, transform_isabelle, transform_lean
+from process_github import setup
+from process_github import transform_isabelle
+from process_github import transform_lean
 from process_stack import *
 from tqdm import tqdm
 
