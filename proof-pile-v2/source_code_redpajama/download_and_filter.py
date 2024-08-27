@@ -1,24 +1,22 @@
-from process_github import setup, transform_lean, transform_isabelle
-from process_stack import *
-import sys
+import argparse
+import json
 import os
-from typing import List, Dict
+import sys
 from concurrent import futures
-from urllib.parse import urlparse
+from concurrent.futures import ProcessPoolExecutor, ThreadPoolExecutor
 from functools import partial
 from multiprocessing import Lock
-from concurrent.futures import ThreadPoolExecutor, ProcessPoolExecutor
 from pathlib import Path
-import backoff
+from typing import Dict, List
+from urllib.parse import urlparse
 
+import backoff
 import httpx
 import ndjson
-import json
-
-import argparse
-from tqdm import tqdm
-
 import tiktoken
+from process_github import setup, transform_isabelle, transform_lean
+from process_stack import *
+from tqdm import tqdm
 
 sys.path.append("../source_code/")
 
