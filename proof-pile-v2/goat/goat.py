@@ -52,7 +52,8 @@ def addition(k=1000):
         question = f"{num1} + {num2}"
         output = f"{num1} + {num2} = {answer}"
         assert (output.split()[-1] == str(answer))
-        data.append({"input": question, "output": output, "answer": str(answer)})
+        data.append(
+            {"input": question, "output": output, "answer": str(answer)})
     return data
 
 
@@ -92,7 +93,8 @@ def subtraction(k=1000):
         question = f"{num1} - {num2}"
         output = f"{num1} - {num2} = {answer}"
         assert (output.split()[-1] == str(answer))
-        data.append({"input": question, "output": output, "answer": str(answer)})
+        data.append(
+            {"input": question, "output": output, "answer": str(answer)})
     return data
 
 
@@ -141,7 +143,8 @@ def mul_1_n(k=1000):
         output = f"{num1} * {num2} = {answer}"
 
         assert (output.split()[-1] == str(answer))
-        data.append({"input": question, "output": output, "answer": str(answer)})
+        data.append(
+            {"input": question, "output": output, "answer": str(answer)})
     return data
 
 
@@ -186,7 +189,8 @@ def mul_n_m(k=1000):
         else:
             num2_digits = [int(d) for d in str(num2)]
 
-            split_terms = [d * 10 ** (len(num2_digits) - i - 1) for i, d in enumerate(num2_digits) if d != 0]
+            split_terms = [d * 10 ** (len(num2_digits) - i - 1)
+                           for i, d in enumerate(num2_digits) if d != 0]
             split = f"""{num1} * ({" + ".join(str(x) for x in split_terms)})"""
             expansion = " + ".join([f"{num1} * {x}" for x in split_terms])
             summation_terms = [num1 * x for x in split_terms]
@@ -202,7 +206,8 @@ def mul_n_m(k=1000):
                 if len(summation_terms) >= 2:
                     step = step + " = "
 
-            cot = question + " = " + f"{split} = {expansion} = {summation} = " + step
+            cot = question + " = " + \
+                f"{split} = {expansion} = {summation} = " + step
 
         assert (cot.split()[-1] == str(answer))
         data.append({"input": question, "output": cot, "answer": str(answer)})
@@ -262,8 +267,11 @@ def div_n_1(k=1000):
         dividend = num1 * num2 + remainder
 
         question = f"{dividend} / {num1}"
-        cot = question + " = " + str(num2) + " R " + str(remainder) if remainder != 0 else question + " = " + str(num2)
-        answer = str(num2) + " R " + str(remainder) if remainder != 0 else str(num2)
+        cot = question + " = " + \
+            str(num2) + " R " + \
+            str(remainder) if remainder != 0 else question + " = " + str(num2)
+        answer = str(num2) + " R " + \
+            str(remainder) if remainder != 0 else str(num2)
 
         assert (cot.split()[-1] == answer.split()[-1])
         data.append({"input": question, "output": cot, "answer": answer})
@@ -318,7 +326,8 @@ def div_n_m(k=1000):
             computed_q = 0
             while left >= num2:
                 if int(str(quotient)[i]) != 0:
-                    intermediate = int(str(quotient)[i] + "0" * (len(str(quotient)) - 1 - i))
+                    intermediate = int(
+                        str(quotient)[i] + "0" * (len(str(quotient)) - 1 - i))
                     answer = num2 * intermediate
                     new_left = left - answer
                     step = f"{left} - {num2} * {intermediate} = {left} - {answer} = {new_left}\n"
@@ -330,7 +339,8 @@ def div_n_m(k=1000):
             assert (left == remainder)
             assert (computed_q == quotient)
             if remainder != 0:
-                cot = cot + f"Therefore, {num1} / {num2} = {quotient} R {remainder}"
+                cot = cot + \
+                    f"Therefore, {num1} / {num2} = {quotient} R {remainder}"
                 answer = f"{quotient} R {remainder}"
             else:
                 cot = cot + f"Therefore, {num1} / {num2} = {quotient}"
@@ -357,18 +367,21 @@ def add_instructions(data, template_name='./templates.json'):
             if " + " in arithmetic:
                 arithmetic = "the sum of " + arithmetic.replace("+", "and")
             if " - " in arithmetic:
-                arithmetic = "the difference of " + arithmetic.replace("-", "and")
+                arithmetic = "the difference of " + \
+                    arithmetic.replace("-", "and")
             if " * " in arithmetic:
                 arithmetic = "the product of " + arithmetic.replace("*", "and")
             if " / " in arithmetic:
-                arithmetic = "the quotient and remainder of " + arithmetic.replace("/", "and")
+                arithmetic = "the quotient and remainder of " + \
+                    arithmetic.replace("/", "and")
 
         if random.random() < 0.5:
             arithmetic = arithmetic.replace("*", "x")
 
         if random.random() < 0.1:
             arithmetic = arithmetic.replace("+", "plus").replace("-", "minus")
-            arithmetic = arithmetic.replace(" x ", " times ").replace("*", "multiplied by").replace("/", "divided by")
+            arithmetic = arithmetic.replace(" x ", " times ").replace(
+                "*", "multiplied by").replace("/", "divided by")
 
         if random.random() < 0.5:
             if "+" in arithmetic or "-" in arithmetic or "*" in arithmetic or "/" in arithmetic or "x" in arithmetic:
@@ -457,14 +470,16 @@ if __name__ == '__main__':
     parser.add_argument('--templates-file', type=str, default="templates.json")
     parser.add_argument('--output-dir', type=str, default="data_jsonl")
     parser.add_argument('--meta-dir', type=str, default="meta_jsonl")
-    parser.add_argument('--k', type=int, default=1000, help='controls number of samples per pair type')
+    parser.add_argument('--k', type=int, default=1000,
+                        help='controls number of samples per pair type')
     args = parser.parse_args()
 
     random.seed(123321)
 
     # Generate arithmetic data
     k = args.k
-    data = addition(k) + subtraction(k) + mul_1_n(k) + mul_n_m(k) + div_n_1(k) + div_n_m(k)
+    data = addition(k) + subtraction(k) + mul_1_n(k) + \
+        mul_n_m(k) + div_n_1(k) + div_n_m(k)
     print("Arithmetic dataset generated")
     print("Total:", len(data))
 
