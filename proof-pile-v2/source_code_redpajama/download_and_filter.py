@@ -24,7 +24,6 @@ from tqdm import tqdm
 
 sys.path.append("../source_code/")
 
-
 PYTHON_EXTENSIONS = ["py", "pyw"]
 C_EXTENSIONS = ["c", "h"]
 CPP_EXTENSIONS = [
@@ -98,18 +97,20 @@ def init_pool_processes(the_locks):
 
 class CustomThreadPoolExecutor(ThreadPoolExecutor):
     """ """
+
     def __init__(self, max_workers=None, initializer=None, initargs=()):
-        super().__init__(
-            max_workers=max_workers, initializer=initializer, initargs=initargs
-        )
+        super().__init__(max_workers=max_workers,
+                         initializer=initializer,
+                         initargs=initargs)
 
 
 class CustomProcessPoolExecutor(ProcessPoolExecutor):
     """ """
+
     def __init__(self, max_workers=None, initializer=None, initargs=()):
-        super().__init__(
-            max_workers=max_workers, initializer=initializer, initargs=initargs
-        )
+        super().__init__(max_workers=max_workers,
+                         initializer=initializer,
+                         initargs=initargs)
 
 
 def _get_ext(example):
@@ -145,7 +146,10 @@ def _convert_to_gh_format(example):
     """
     return {
         "text": example["text"],
-        "meta": {"repo": example["meta"]["repo_name"], **example["meta"]},
+        "meta": {
+            "repo": example["meta"]["repo_name"],
+            **example["meta"]
+        },
     }
 
 
@@ -161,15 +165,15 @@ def download_jsonl(url: str, filepath: str):
         with httpx.stream("GET", url, timeout=30) as response:
             total = int(response.headers["Content-Length"])
 
-            with tqdm(
-                total=total, unit_scale=True, unit_divisor=1024, unit="B"
-            ) as progress:
+            with tqdm(total=total,
+                      unit_scale=True,
+                      unit_divisor=1024,
+                      unit="B") as progress:
                 num_bytes_downloaded = response.num_bytes_downloaded
                 for chunk in response.iter_bytes():
                     download_file.write(chunk)
-                    progress.update(
-                        response.num_bytes_downloaded - num_bytes_downloaded
-                    )
+                    progress.update(response.num_bytes_downloaded -
+                                    num_bytes_downloaded)
                     num_bytes_downloaded = response.num_bytes_downloaded
 
 
@@ -268,7 +272,10 @@ def process(example):
     else:
         new = example
 
-    return {**new, "num_tokens": len(ENC.encode(new["text"], disallowed_special=()))}
+    return {
+        **new, "num_tokens": len(ENC.encode(new["text"],
+                                            disallowed_special=()))
+    }
 
 
 def get_filter_save(url: str, raw_dir: str, data_dir: str):
@@ -323,9 +330,9 @@ def concurrent_get_filter_save(
     to_map = partial(get_filter_save, raw_dir=raw_dir, data_dir=data_dir)
 
     locks = {k: Lock() for k in EXTENSIONS}
-    with CustomProcessPoolExecutor(
-        max_workers=num_workers, initializer=init_pool_processes, initargs=(locks,)
-    ) as executor:
+    with CustomProcessPoolExecutor(max_workers=num_workers,
+                                   initializer=init_pool_processes,
+                                   initargs=(locks, )) as executor:
         token_count_dicts = list(executor.map(to_map, urls))
 
     # init_pool_processes(locks)
